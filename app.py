@@ -51,12 +51,11 @@ input_df =pd.get_dummies(input_df)
 
 # prediction
 
+if st.button("Predict Churn"):
 
-if st.button("Predict"):
-     
-     prediction = model.predict(input_df)
+    prediction = model.predict(input_df)
 
-if prediction[0] == 1:
+    if prediction[0] == 1:
         st.error("User likely to churn")
-else:
-        st.success("User Likely to Stay")
+    else:
+        st.success(" User will stay subscribed")
