@@ -24,10 +24,6 @@ watch_time = st.number_input(
 0,1000,100
 )
 
-tenure = st.slider(
-"Acount Tenure",
-1,60,12
-)
 
 genre = st.selectbox(
 "Favorite Genre",
@@ -38,10 +34,9 @@ genre = st.selectbox(
 
 input_dict ={
 'Age':[age],
-'Watch_Time_hours':[watch_time],
-'Tenure':[tenure],
 'Country':[country],
 'Subscription_type':[subscription],
+'Watch_Time_hours':[watch_time],
 'Favorite_Genre':[genre]
 }
 
