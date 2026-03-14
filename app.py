@@ -6,14 +6,57 @@ import numpy as np
 model = pickle.load(open("churn_model.pkl","rb"))
 
 st.title("Netflix Churn Prediction")
+st.write("Enter User information to predict churn probability")
 
-age = st.slider("Age",18,70)
-tenure = st.slider("Month Subscribed",1,60)
+age = st.slider("Age",18,70,25)
+country = st.selectbox(
+"Country",
+["USA","India","UK","Cananda","Germany"]
+
+)
+subscription = st.selectbox(
+"Subscription Type",
+["Basic", "Standard", "Premium"]
+)
+
+watch_time = st.number_input(
+"Watch Time",
+0,1000,100
+)
+
+tenure = st.slider(
+"Acount Tenure",
+1,60,12
+)
+
+genre = st.selectbox(
+"Favorite Genre",
+["Action","Comedy","Drama","Sci-Fi","Romance"]
+)
+
+# convert impot to data frame
+
+input_dict ={
+'Age':[age],
+'Watch_Time_hours':[watch_time],
+'Tenure':[tenure],
+'Country':[country],
+'Subscription_type':[subscription],
+'Favorite_Genre':[genre]
+}
+
+input_df = pd.DataFrame(input_dict)
+
+input_df =pd.get_dummies(input_df)
+
+# prediction
+
 
 if st.button("Predict"):
-    prediction = model.predict([[age,1,2,15.99,tenure,120,3,1,2]])
+     
+     prediction = model.predict(input_df)
 
-    if prediction[0] == 1:
+if prediction[0] == 1:
         st.error("User likely to churn")
-    else:
+else:
         st.success("User Likely to Stay")
